@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: ppdb-laravel
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    numInstances: 1
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: ppdb-db
+          property: host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        fromDatabase:
+          name: ppdb-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ppdb-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ppdb-db
+          property: password
+      - key: MIDTRANS_MERCHANT_ID
+        sync: false
+      - key: MIDTRANS_CLIENT_KEY
+        sync: false
+      - key: MIDTRANS_SERVER_KEY
+        sync: false
+      - key: MIDTRANS_SIMULATION
+        value: "true"
+
+databases:
+  - name: ppdb-db
+    plan: free
