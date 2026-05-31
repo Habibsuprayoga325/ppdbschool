@@ -44,5 +44,5 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
 # Expose container port
 EXPOSE 80
 
-# Start production optimizations, run migrations, and start Apache web server
-CMD sh -c "if [ \"\${DB_CONNECTION:-sqlite}\" = \"sqlite\" ]; then if [ ! -f database/database.sqlite ]; then mkdir -p database && touch database/database.sqlite && chown -R www-data:www-data database && chmod -R 775 database; fi; fi && su -s /bin/sh -c 'php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force' www-data && apache2-foreground"
+# Start production optimizations, run migrations, seed database, and start Apache web server
+CMD sh -c "if [ \"\${DB_CONNECTION:-sqlite}\" = \"sqlite\" ]; then if [ ! -f database/database.sqlite ]; then mkdir -p database && touch database/database.sqlite && chown -R www-data:www-data database && chmod -R 775 database; fi; fi && su -s /bin/sh -c 'php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force && php artisan db:seed --force' www-data && apache2-foreground"
