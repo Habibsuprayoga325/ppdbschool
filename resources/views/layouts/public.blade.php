@@ -95,7 +95,7 @@
     <div class="container">
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('public.index') }}" class="navbar-logo">
-                <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 42px; width: auto; max-width: 160px; object-fit: contain;">
+                <img src="{{ asset('img/tut.png') }}?v=1.1" alt="Logo" style="height: 42px; width: auto; max-width: 160px; object-fit: contain;">
                 <div class="navbar-logo-text">
                     PPDB Online
                     <small>Sekolah Amanah Bangsa</small>

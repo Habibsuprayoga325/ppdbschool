@@ -266,7 +266,7 @@
             </div>
             <div class="col-lg-5 hero-logo-box d-none d-lg-flex">
                 <div class="hero-logo-card">
-                    <img src="{{ asset('img/tut.png') }}" alt="Logo Tut Wuri">
+                    <img src="{{ asset('img/tut.png') }}?v=1.1" alt="Logo Tut Wuri">
                     <h3 class="fw-bold text-dark mb-1" style="font-size: 18px;">Amanah Bangsa</h3>
                     <p class="text-muted small mb-0">Kab. Bekasi, Jawa Barat</p>
                 </div>

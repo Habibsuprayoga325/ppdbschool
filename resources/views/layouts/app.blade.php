@@ -386,7 +386,7 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-        <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 35px; width: auto; max-width: 140px; object-fit: contain;">
+        <img src="{{ asset('img/tut.png') }}?v=1.1" alt="Logo" style="height: 35px; width: auto; max-width: 140px; object-fit: contain;">
         <div class="sidebar-brand-text">
             PPDB Online
             <small>Amanah Bangsa</small>

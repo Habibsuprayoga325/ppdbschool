@@ -105,7 +105,7 @@
     <!-- Left Panel -->
     <div class="login-left">
         <div class="brand">
-            <img class="brand-logo-img" src="{{ asset('img/tut.png') }}" alt="Logo">
+            <img class="brand-logo-img" src="{{ asset('img/tut.png') }}?v=1.1" alt="Logo">
             <div>
                 <div class="brand-name">PPDB Online</div>
                 <div class="brand-sub">Sekolah Amanah Bangsa Cikarang</div>

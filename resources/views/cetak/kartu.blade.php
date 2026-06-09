@@ -254,7 +254,7 @@
     <div class="kartu-pendaftaran">
         <div class="kartu-header">
             <div class="kartu-logo" style="background: white; padding: 6px 12px; border-radius: 10px; height: 50px; width: 180px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 100%; width: 100%; object-fit: contain;">
+                <img src="{{ asset('img/tut.png') }}?v=1.1" alt="Logo" style="height: 100%; width: 100%; object-fit: contain;">
             </div>
             <div class="kartu-title">
                 <h2>KARTU PENDAFTARAN PPDB</h2>
