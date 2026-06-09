@@ -26,9 +26,9 @@
             <div class="stat-icon warning"><i class="fas fa-hourglass-half"></i></div>
             <div>
                 <div class="stat-value">
-                    {{ $pembayaranGroups->filter(fn($g) => $g->first()->status === 'menunggu_konfirmasi')->count() }}
+                    {{ $pembayaranGroups->filter(fn($g) => $g->first()->status === 'menunggu_verifikasi')->count() }}
                 </div>
-                <div class="stat-label">Menunggu Konfirmasi</div>
+                <div class="stat-label">Menunggu Verifikasi</div>
             </div>
         </div>
     </div>
@@ -68,11 +68,18 @@
                     @foreach($pembayaranGroups as $paymentCode => $group)
                         @php
                             $first = $group->first();
+                            if ($first->status !== 'menunggu_verifikasi') {
+                                continue;
+                            }
                             $student = $first->identitasSiswa;
                             $totalNominal = $group->sum(fn($p) => $p->administrasiItem->nominal);
                             $itemsNames = $group->map(fn($p) => $p->administrasiItem->nama)->implode(', ');
-                            $fileUrl = asset('storage/' . $first->bukti_bayar);
-                            $fileExtension = strtolower(pathinfo($first->bukti_bayar, PATHINFO_EXTENSION));
+                            $fileUrl = filter_var($first->payment_proof, FILTER_VALIDATE_URL)
+                                ? $first->payment_proof
+                                : asset('storage/' . $first->payment_proof);
+                            
+                            $filePath = parse_url($first->payment_proof, PHP_URL_PATH) ?? $first->payment_proof;
+                            $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
                         @endphp
                         <tr>
                             <td>{{ $idx++ }}</td>
@@ -97,45 +104,35 @@
                                 <small class="text-muted">{{ $first->created_at?->format('H:i') }} WIB</small>
                             </td>
                             <td>
-                                @if($first->bukti_bayar)
+                                @if($first->payment_proof)
                                     <button type="button" class="btn btn-sm btn-outline-primary" 
                                             onclick="showBukti('{{ $fileUrl }}', '{{ $fileExtension }}')">
                                         <i class="fas fa-image me-1"></i> Lihat
                                     </button>
                                 @else
-                                    <span class="badge bg-info text-white" style="font-size:12px;"><i class="fas fa-credit-card me-1"></i> Midtrans</span>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                @if($first->status === 'lunas')
-                                    <span class="badge" style="background:#d1fae5;color:#065f46;">Lunas</span>
-                                @elseif($first->status === 'menunggu_konfirmasi')
-                                    <span class="badge" style="background:#fef3c7;color:#92400e;">Konfirmasi</span>
-                                @elseif($first->status === 'ditolak')
-                                    <span class="badge" style="background:#fee2e2;color:#991b1b;">Ditolak</span>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                @if($first->status === 'menunggu_konfirmasi')
-                                    <div class="d-flex gap-2 justify-content-center">
-                                        <form action="{{ route('admin.pembayaran.konfirmasi', $paymentCode) }}" method="POST"
-                                              onsubmit="return confirm('Konfirmasi Lunas transaksi ini?')">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-success text-white">
-                                                <i class="fas fa-check me-1"></i> Terima
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('admin.pembayaran.tolak', $paymentCode) }}" method="POST"
-                                              onsubmit="return confirm('Tolak transaksi ini?')">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-danger text-white">
-                                                <i class="fas fa-times me-1"></i> Tolak
-                                            </button>
-                                        </form>
-                                    </div>
-                                @else
                                     <span class="text-muted small">-</span>
                                 @endif
+                            </td>
+                            <td class="text-center">
+                                <span class="badge text-white bg-info">Menunggu Verifikasi</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <form action="{{ route('admin.pembayaran.konfirmasi', $paymentCode) }}" method="POST"
+                                          onsubmit="return confirm('Konfirmasi Lunas transaksi ini?')">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success text-white">
+                                            <i class="fas fa-check me-1"></i> Terima
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('admin.pembayaran.tolak', $paymentCode) }}" method="POST"
+                                          onsubmit="return confirm('Tolak transaksi ini?')">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger text-white">
+                                            <i class="fas fa-times me-1"></i> Tolak
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

@@ -50,7 +50,7 @@
         font-size: 16px;
         font-weight: 700;
         color: #1e293b;
-        border-bottom: 2px solid #eff6ff;
+        border-bottom: 2px solid #f0fdf4;
         padding-bottom: 6px;
         margin-bottom: 20px;
         display: flex;
@@ -117,12 +117,7 @@
             </div>
         @endif
 
-        @if(request()->get('payment_pending'))
-            <div class="alert alert-warning alert-dismissible fade show mb-4">
-                <i class="fas fa-info-circle me-2"></i> Pembayaran tertunda/menunggu pembayaran. Silakan selesaikan pembayaran Anda sesuai instruksi di Midtrans.
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
+
 
         <div class="row">
             <div class="col-lg-3">
@@ -270,7 +265,7 @@
                                         @foreach($items as $index => $item)
                                             @php
                                                 $payment = $siswa->pembayaranPeserta->where('administrasi_item_id', $item->id)->where('status', 'lunas')->first()
-                                                    ?? $siswa->pembayaranPeserta->where('administrasi_item_id', $item->id)->where('status', 'menunggu_konfirmasi')->first()
+                                                    ?? $siswa->pembayaranPeserta->where('administrasi_item_id', $item->id)->where('status', 'menunggu_verifikasi')->first()
                                                     ?? $siswa->pembayaranPeserta->where('administrasi_item_id', $item->id)->where('status', 'ditolak')->first();
                                                 
                                                 $status = $payment ? $payment->status : 'belum_dibayar';
@@ -301,9 +296,9 @@
                                                         <span class="status-badge status-verified">
                                                             <i class="fas fa-check-circle me-1"></i> Lunas
                                                         </span>
-                                                    @elseif($status === 'menunggu_konfirmasi')
-                                                        <span class="status-badge status-pending">
-                                                            <i class="fas fa-clock me-1"></i> Pending Verifikasi
+                                                    @elseif($status === 'menunggu_verifikasi')
+                                                        <span class="status-badge bg-info text-white">
+                                                            <i class="fas fa-clock me-1"></i> Menunggu Verifikasi
                                                         </span>
                                                     @elseif($status === 'ditolak')
                                                         <span class="status-badge status-unpaid" title="Ditolak. Catatan: {{ $payment->catatan ?? '-' }}">
@@ -321,15 +316,59 @@
                                 </table>
                             </div>
 
-                            <div class="p-4 border rounded-4 d-flex flex-column flex-md-row justify-content-between align-items-center bg-light">
-                                <div class="mb-3 mb-md-0 text-center text-md-start">
-                                    <small class="text-muted d-block uppercase tracking-wider">TOTAL TAGIHAN TERPILIH</small>
-                                    <h2 class="m-0 text-primary fw-bold" id="total-selected-payment">Rp 0</h2>
+                            <form action="{{ route('peserta.pembayaran.store') }}" method="POST" enctype="multipart/form-data" id="form-pembayaran">
+                                @csrf
+                                <!-- Hidden container for item IDs -->
+                                <div id="selected-items-container"></div>
+
+                                <div class="p-4 border rounded-4 bg-light mb-4">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-7 mb-3 mb-md-0 text-center text-md-start">
+                                            <small class="text-muted d-block uppercase tracking-wider">TOTAL TAGIHAN TERPILIH</small>
+                                            <h2 class="m-0 text-primary fw-bold" id="total-selected-payment">Rp 0</h2>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="btn btn-primary py-3 px-5 fw-bold w-100 w-md-auto" id="btn-pay-now" disabled style="border-radius: 12px; font-size: 15px;">
-                                    <i class="fas fa-money-bill-wave me-2"></i> Bayar Sekarang
-                                </button>
-                            </div>
+
+                                <div class="row g-4" id="qris-payment-section" style="display: none;">
+                                    <div class="col-md-5">
+                                        <div class="p-3 border rounded-4 bg-white shadow-sm text-center">
+                                            <h6 class="fw-bold mb-3 text-dark"><i class="fas fa-qrcode me-2 text-primary"></i>QRIS PPDB Online</h6>
+                                            <div class="mb-3">
+                                                <img src="{{ asset('images/qris.jpeg') }}" alt="QRIS PPDB" class="img-fluid border rounded-3 shadow-xs" style="max-height: 250px; width: auto; object-fit: contain;">
+                                            </div>
+                                            <div class="fw-bold text-dark" style="font-size: 14px;">Sekolah Amanah Bangsa Cikarang</div>
+                                            <small class="text-muted" style="font-size: 11px;">GPN / QRIS STANDAR NASIONAL</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="p-4 border rounded-4 bg-white shadow-sm h-100">
+                                            <h5 class="fw-bold text-dark mb-3">Upload Bukti Pembayaran</h5>
+                                            <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis small mb-4" style="border-radius: 12px; font-size: 13px;">
+                                                <i class="fas fa-info-circle me-2"></i>
+                                                <strong>Petunjuk:</strong> Silakan pindai QRIS di samping menggunakan aplikasi e-wallet atau m-banking Anda. Kirim uang sesuai dengan <strong>Total Tagihan Terpilih</strong>, lalu unggah bukti transfer di bawah.
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="payment_proof" class="form-label fw-bold">Unggah Gambar Bukti Transfer <span class="text-danger">*</span></label>
+                                                <input type="file" class="form-control" id="payment_proof" name="payment_proof" accept="image/png, image/jpeg, image/jpg" required>
+                                                <div class="form-text small text-muted">Format file yang diperbolehkan: JPG, JPEG, PNG (Maksimal 2MB)</div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="catatan" class="form-label fw-bold">Catatan (Opsional)</label>
+                                                <textarea class="form-control" id="catatan" name="catatan" rows="3" placeholder="Masukkan catatan tambahan jika diperlukan (misalnya nama pemilik rekening pengirim)"></textarea>
+                                            </div>
+
+                                            <div class="mt-4">
+                                                <button type="submit" class="btn btn-primary py-3 px-5 fw-bold w-100" id="btn-submit-payment" disabled style="border-radius: 12px; font-size: 15px;">
+                                                    <i class="fas fa-paper-plane me-2"></i> Kirim Bukti Pembayaran
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -669,240 +708,56 @@
     </div>
 </div>
 
-<!-- Modal Simulator Midtrans -->
-<div class="modal fade" id="midtransSimulatorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="midtransSimulatorModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
-            <!-- Simulation Banner -->
-            <div class="bg-warning text-dark text-center py-2 px-3 fw-bold small d-flex align-items-center justify-content-center gap-2">
-                <i class="fas fa-flask"></i>
-                <span>MODE SIMULASI PEMBAYARAN</span>
-            </div>
-            
-            <div class="modal-header border-0 bg-light px-4 py-3 d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center gap-2">
-                    <img src="https://midtrans.com/assets/img/midtrans-logo-white-background.png" alt="Midtrans Logo" style="height: 18px; filter: grayscale(100%);">
-                    <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle" style="font-size: 11px;">Sandbox</span>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <div class="modal-body px-4 py-4">
-                <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis small mb-4" style="border-radius: 12px; font-size: 13px;">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <strong>Perhatian:</strong> Gerbang pembayaran ini berada dalam <strong>Mode Simulasi</strong> sementara menunggu aktivasi akun Midtrans resmi dari panitia. Tidak ada uang sungguhan yang ditransaksikan.
-                </div>
-                
-                <div class="border rounded-4 p-3 mb-4 bg-light">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted small">Kode Transaksi:</span>
-                        <strong class="text-dark" id="sim-payment-code">-</strong>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted small">Penerima:</span>
-                        <strong class="text-dark">PPDB SDN Mekar Mukti 06</strong>
-                    </div>
-                    <hr class="my-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted fw-semibold">Total Tagihan:</span>
-                        <h4 class="m-0 text-primary fw-bold" id="sim-total-amount">Rp 0</h4>
-                    </div>
-                </div>
-
-                <div class="text-center mb-2">
-                    <p class="text-muted small mb-2">Pindai QRIS Simulasi di bawah untuk membayar:</p>
-                    <div class="d-inline-block p-3 bg-white border rounded-4 shadow-sm mb-2">
-                        <svg width="180" height="180" viewBox="0 0 100 100" class="text-dark">
-                            <rect x="0" y="0" width="100" height="100" fill="white"/>
-                            <!-- QR Code-like patterns in blue and dark gray -->
-                            <rect x="5" y="5" width="25" height="25" fill="#1e3a8a"/>
-                            <rect x="10" y="10" width="15" height="15" fill="white"/>
-                            <rect x="13" y="13" width="9" height="9" fill="#1e3a8a"/>
-                            
-                            <rect x="70" y="5" width="25" height="25" fill="#1e3a8a"/>
-                            <rect x="75" y="10" width="15" height="15" fill="white"/>
-                            <rect x="78" y="13" width="9" height="9" fill="#1e3a8a"/>
-                            
-                            <rect x="5" y="70" width="25" height="25" fill="#1e3a8a"/>
-                            <rect x="10" y="75" width="15" height="15" fill="white"/>
-                            <rect x="13" y="78" width="9" height="9" fill="#1e3a8a"/>
-
-                            <rect x="40" y="40" width="20" height="20" fill="#1e3a8a"/>
-                            <rect x="45" y="45" width="10" height="10" fill="white"/>
-                            
-                            <rect x="40" y="10" width="5" height="5" fill="#1e293b"/>
-                            <rect x="50" y="15" width="5" height="10" fill="#1e293b"/>
-                            <rect x="35" y="25" width="10" height="5" fill="#1e293b"/>
-                            <rect x="15" y="40" width="5" height="15" fill="#1e293b"/>
-                            <rect x="25" y="50" width="10" height="5" fill="#1e293b"/>
-                            <rect x="50" y="70" width="5" height="10" fill="#1e293b"/>
-                            <rect x="70" y="45" width="15" height="5" fill="#1e293b"/>
-                            <rect x="80" y="55" width="5" height="15" fill="#1e293b"/>
-                            <rect x="75" y="75" width="10" height="10" fill="#1e293b"/>
-                        </svg>
-                    </div>
-                    <div class="text-muted" style="font-size: 11px;">GPN / QRIS STANDAR NASIONAL</div>
-                </div>
-            </div>
-            
-            <div class="modal-footer border-0 bg-light px-4 py-3 d-flex gap-2">
-                <button type="button" class="btn btn-outline-secondary py-2.5 px-4 flex-grow-1" data-bs-dismiss="modal" style="border-radius: 12px; font-weight: 600; font-size: 14px;">Batal</button>
-                <button type="button" class="btn btn-success py-2.5 px-4 flex-grow-1" id="btn-simulate-success" style="border-radius: 12px; font-weight: 600; font-size: 14px;">
-                    <i class="fas fa-check-circle me-1"></i> Simulasikan Bayar Sukses
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@php
-    $snapUrl = config('services.midtrans.is_production') 
-        ? 'https://app.midtrans.com/snap/snap.js' 
-        : 'https://app.sandbox.midtrans.com/snap/snap.js';
-@endphp
-
 @endsection
 
 @push('scripts')
-<script type="text/javascript" src="{{ $snapUrl }}" data-client-key="{{ config('services.midtrans.client_key') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const checkboxes = document.querySelectorAll('.item-checkbox');
     const totalSelectedPayment = document.getElementById('total-selected-payment');
-    const btnPayNow = document.getElementById('btn-pay-now');
+    const qrisPaymentSection = document.getElementById('qris-payment-section');
+    const btnSubmitPayment = document.getElementById('btn-submit-payment');
+    const paymentProofInput = document.getElementById('payment_proof');
+    const selectedItemsContainer = document.getElementById('selected-items-container');
 
     // Checkbox and sum logic
     function updateSelectedPayment() {
         let total = 0;
         let selectedCount = 0;
+        selectedItemsContainer.innerHTML = '';
         
         checkboxes.forEach(function(cb) {
             if (cb.checked) {
                 total += parseFloat(cb.getAttribute('data-nominal'));
                 selectedCount++;
+                
+                // Add hidden input representing this item
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'items[]';
+                input.value = cb.value;
+                selectedItemsContainer.appendChild(input);
             }
         });
         
         totalSelectedPayment.textContent = 'Rp ' + total.toLocaleString('id-ID');
-        btnPayNow.disabled = (selectedCount === 0);
+        
+        // Show/hide QRIS section and toggle submit button state
+        if (selectedCount > 0) {
+            qrisPaymentSection.style.display = 'flex';
+        } else {
+            qrisPaymentSection.style.display = 'none';
+        }
+        
+        const hasFile = paymentProofInput.files.length > 0;
+        btnSubmitPayment.disabled = (selectedCount === 0 || !hasFile);
     }
     
     checkboxes.forEach(function(cb) {
         cb.addEventListener('change', updateSelectedPayment);
     });
     
-    // Open payment modal
-    btnPayNow.addEventListener('click', function() {
-        btnPayNow.disabled = true;
-        const originalContent = btnPayNow.innerHTML;
-        btnPayNow.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Memproses...';
-        
-        let selectedItems = [];
-        checkboxes.forEach(function(cb) {
-            if (cb.checked) {
-                selectedItems.push(cb.value);
-            }
-        });
-        
-        fetch('{{ route("peserta.pembayaran.initiate") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                items: selectedItems
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw err; });
-            }
-            return response.json();
-        })
-        .then(data => {
-            btnPayNow.disabled = false;
-            btnPayNow.innerHTML = originalContent;
-            
-            if (data.token.startsWith('DUMMY-') || data.is_simulation) {
-                // Set payment code and amount in simulation modal
-                document.getElementById('sim-payment-code').textContent = data.payment_code;
-                
-                let total = 0;
-                checkboxes.forEach(function(cb) {
-                    if (cb.checked) {
-                        total += parseFloat(cb.getAttribute('data-nominal'));
-                    }
-                });
-                document.getElementById('sim-total-amount').textContent = 'Rp ' + total.toLocaleString('id-ID');
-                
-                // Store payment_code on simulator button
-                const btnSimulateSuccess = document.getElementById('btn-simulate-success');
-                btnSimulateSuccess.setAttribute('data-payment-code', data.payment_code);
-                
-                // Open bootstrap modal
-                const simulatorModal = new bootstrap.Modal(document.getElementById('midtransSimulatorModal'));
-                simulatorModal.show();
-            } else {
-                window.snap.pay(data.token, {
-                    onSuccess: function(result) {
-                        window.location.href = "{{ route('peserta.dashboard') }}?payment_success=1";
-                    },
-                    onPending: function(result) {
-                        window.location.href = "{{ route('peserta.dashboard') }}?payment_pending=1";
-                    },
-                    onError: function(result) {
-                        alert("Pembayaran gagal. Silakan coba lagi.");
-                    },
-                    onClose: function() {
-                        window.location.reload();
-                    }
-                });
-            }
-        })
-        .catch(error => {
-            btnPayNow.disabled = false;
-            btnPayNow.innerHTML = originalContent;
-            alert(error.error || "Gagal menginisialisasi pembayaran. Silakan coba lagi.");
-        });
-    });
-
-    // Handle simulation success click
-    const btnSimulateSuccess = document.getElementById('btn-simulate-success');
-    btnSimulateSuccess.addEventListener('click', function() {
-        btnSimulateSuccess.disabled = true;
-        const originalContent = btnSimulateSuccess.innerHTML;
-        btnSimulateSuccess.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Memproses...';
-        
-        const paymentCode = btnSimulateSuccess.getAttribute('data-payment-code');
-        
-        fetch('{{ route("peserta.pembayaran.simulate-success") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                payment_code: paymentCode
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw err; });
-            }
-            return response.json();
-        })
-        .then(data => {
-            window.location.href = "{{ route('peserta.dashboard') }}?payment_success=1";
-        })
-        .catch(error => {
-            btnSimulateSuccess.disabled = false;
-            btnSimulateSuccess.innerHTML = originalContent;
-            alert(error.error || "Gagal memproses simulasi pembayaran.");
-        });
-    });
+    paymentProofInput.addEventListener('change', updateSelectedPayment);
 });
 </script>
 @endpush

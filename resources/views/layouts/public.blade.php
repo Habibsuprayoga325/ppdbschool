@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'PPDB SDN Mekar Mukti 06')</title>
-    <meta name="description" content="@yield('meta-description', 'Penerimaan Peserta Didik Baru SDN Mekar Mukti 06 Cikarang - Daftarkan putra/putri Anda sekarang.')">
+    <title>@yield('title', 'PPDB Sekolah Amanah Bangsa Cikarang')</title>
+    <meta name="description" content="@yield('meta-description', 'Penerimaan Peserta Didik Baru Sekolah Amanah Bangsa Cikarang - Daftarkan putra/putri Anda sekarang.')">
     <link rel="icon" href="{{ asset('img/logo.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,9 +15,9 @@
 
     <style>
         :root {
-            --primary: #0f4c81; /* Royal Blue / Navy matching logo */
-            --primary-dark: #0d3e6a;
-            --accent: #3b82f6;
+            --primary: #1e7c3e; /* Amanah Bangsa Green */
+            --primary-dark: #166534;
+            --accent: #dc2626; /* Red accent */
             --text-dark: #0f172a;
         }
         * { box-sizing: border-box; }
@@ -95,10 +95,10 @@
     <div class="container">
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('public.index') }}" class="navbar-logo">
-                <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 38px; width: 38px; object-fit: contain;">
+                <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 42px; width: auto; max-width: 160px; object-fit: contain;">
                 <div class="navbar-logo-text">
                     PPDB Online
-                    <small>SDN Mekar Mukti 06</small>
+                    <small>Sekolah Amanah Bangsa</small>
                 </div>
             </a>
             <div class="d-none d-md-flex align-items-center gap-3">
@@ -166,17 +166,17 @@
     <div class="container">
         <div class="row g-4 text-start">
             <div class="col-md-5">
-                <h5 class="text-white fw-bold mb-3" style="font-size: 16px;">SDN Mekar Mukti 06</h5>
-                <p class="small mb-3" style="line-height: 1.6; font-size: 13px;">Portal Penerimaan Peserta Didik Baru (PPDB) Online resmi SDN Mekar Mukti 06 Cikarang Baru. Proses pendaftaran yang mudah, aman, transparan, dan terintegrasi.</p>
-                <p class="small" style="font-size: 12px;">© {{ date('Y') }} SDN Mekar Mukti 06. All Rights Reserved.</p>
+                <h5 class="text-white fw-bold mb-3" style="font-size: 16px;">Sekolah Amanah Bangsa</h5>
+                <p class="small mb-3" style="line-height: 1.6; font-size: 13px;">Portal Penerimaan Peserta Didik Baru (PPDB) Online resmi Sekolah Amanah Bangsa Cikarang. Proses pendaftaran yang mudah, aman, transparan, dan terintegrasi.</p>
+                <p class="small" style="font-size: 12px;">© {{ date('Y') }} Sekolah Amanah Bangsa. All Rights Reserved.</p>
             </div>
             <div class="col-md-4">
                 <h5 class="text-white fw-bold mb-3" style="font-size: 16px;">Contact Us</h5>
                 <ul class="list-unstyled small d-flex flex-column gap-2" style="font-size: 13px; padding: 0;">
-                    <li><i class="fas fa-phone me-2 text-primary-light"></i> +62 877-8014-7825</li>
-                    <li><i class="fas fa-envelope me-2 text-primary-light"></i> ppdb@sdnmekarmukti06.sch.id</li>
-                    <li><i class="fas fa-globe me-2 text-primary-light"></i> <a href="{{ route('public.index') }}" class="text-decoration-none text-muted" style="transition: color 0.2s;">www.sdnmekarmukti06.sch.id</a></li>
-                    <li><i class="fas fa-map-marker-alt me-2 text-primary-light"></i> Jalan Kasuari XV, Perum Cikarang Baru, Bekasi, Jawa Barat</li>
+                    <li><i class="fas fa-phone me-2 text-primary-light"></i> 0877-8329-6667</li>
+                    <li><i class="fas fa-envelope me-2 text-primary-light"></i> support@amanahbangsa.sch.id</li>
+                    <li><i class="fas fa-globe me-2 text-primary-light"></i> <a href="{{ route('public.index') }}" class="text-decoration-none text-muted" style="transition: color 0.2s;">www.amanahbangsa.sch.id</a></li>
+                    <li><i class="fas fa-map-marker-alt me-2 text-primary-light"></i> Jl. Irigasi Raya, Jayamukti, Cikarang Pusat, 17530, Bekasi, Jawa Barat</li>
                 </ul>
             </div>
             <div class="col-md-3">

@@ -25,7 +25,7 @@
             margin-bottom: 24px;
         }
         .btn-print {
-            background-color: #0f4c81;
+            background-color: #1e7c3e;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -36,12 +36,12 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.2);
+            box-shadow: 0 4px 12px rgba(30, 124, 62, 0.2);
             transition: all 0.2s;
             text-decoration: none;
         }
         .btn-print:hover {
-            background-color: #0d3e6a;
+            background-color: #166534;
             transform: translateY(-1px);
         }
 
@@ -54,12 +54,12 @@
             width: 100%;
             max-width: 650px;
             overflow: hidden;
-            background-image: radial-gradient(circle at 100% 0%, rgba(15, 76, 129, 0.03) 0%, transparent 60%);
+            background-image: radial-gradient(circle at 100% 0%, rgba(30, 124, 62, 0.03) 0%, transparent 60%);
         }
         
         /* Card Header */
         .kartu-header {
-            background: #0f4c81;
+            background: #1e7c3e;
             color: white;
             padding: 24px 30px;
             display: flex;
@@ -221,7 +221,7 @@
                 border-radius: 0;
             }
             .kartu-header {
-                background: #0f4c81 !important;
+                background: #1e7c3e !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -253,12 +253,12 @@
     <!-- Official Registration Card -->
     <div class="kartu-pendaftaran">
         <div class="kartu-header">
-            <div class="kartu-logo" style="background: white; padding: 5px; border-radius: 12px; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <img src="{{ asset('img/tut.png') }}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+            <div class="kartu-logo" style="background: white; padding: 6px 12px; border-radius: 10px; height: 50px; width: 180px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 100%; width: 100%; object-fit: contain;">
             </div>
             <div class="kartu-title">
                 <h2>KARTU PENDAFTARAN PPDB</h2>
-                <p>SDN MEKAR MUKTI 06 | TA 2026/2027</p>
+                <p>Sekolah Amanah Bangsa Cikarang | TA 2026/2027</p>
             </div>
             <div class="reg-number">
                 {{ $siswa->no_pendaftaran }}

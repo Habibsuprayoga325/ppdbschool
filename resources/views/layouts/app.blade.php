@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') | PPDB SDN Mekar Mukti 06</title>
+    <title>@yield('title', 'Dashboard') | PPDB Sekolah Amanah Bangsa Cikarang</title>
     <link rel="icon" href="{{ asset('img/logo.png') }}">
 
     <!-- Google Fonts -->
@@ -25,9 +25,9 @@
         :root {
             --sidebar-width: 260px;
             --sidebar-collapsed-width: 70px;
-            --primary: #0f4c81; /* Royal blue / Navy matching logo */
-            --primary-dark: #0d3e6a;
-            --primary-light: #eff6ff;
+            --primary: #1e7c3e; /* Amanah Bangsa Green */
+            --primary-dark: #166534;
+            --primary-light: #f0fdf4;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
@@ -35,7 +35,7 @@
             --sidebar-bg: #ffffff;
             --sidebar-text: #475569;
             --sidebar-hover: #f8fafc;
-            --sidebar-active: #eff6ff;
+            --sidebar-active: #f0fdf4;
             --topbar-height: 65px;
             --body-bg: #f8fafc;
             --card-bg: #ffffff;
@@ -386,10 +386,10 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-        <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 38px; width: 38px; object-fit: contain;">
+        <img src="{{ asset('img/tut.png') }}" alt="Logo" style="height: 35px; width: auto; max-width: 140px; object-fit: contain;">
         <div class="sidebar-brand-text">
             PPDB Online
-            <small>SDN Mekar Mukti 06</small>
+            <small>Amanah Bangsa</small>
         </div>
     </a>
 
@@ -447,7 +447,7 @@
                     <span class="nav-icon"><i class="fas fa-check-double"></i></span>
                     <span class="nav-text">Verifikasi Pembayaran</span>
                     @php
-                        $pendingPaymentsCount = \App\Models\PembayaranPeserta::where('status', 'menunggu_konfirmasi')->distinct('payment_code')->count('payment_code');
+                        $pendingPaymentsCount = \App\Models\PembayaranPeserta::where('status', 'menunggu_verifikasi')->distinct('payment_code')->count('payment_code');
                     @endphp
                     @if($pendingPaymentsCount > 0)
                         <span class="badge bg-danger ms-auto rounded-pill" style="font-size: 11px; padding: 4px 8px;">{{ $pendingPaymentsCount }}</span>

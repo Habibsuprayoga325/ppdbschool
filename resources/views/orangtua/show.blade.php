@@ -28,7 +28,7 @@
                 @if($orangTua->identitasSiswa && $orangTua->identitasSiswa->foto_siswa)
                     <img src="{{ asset('storage/' . $orangTua->identitasSiswa->foto_siswa) }}" class="rounded-circle mb-3" style="width:100px;height:100px;object-fit:cover;">
                 @else
-                    <div style="width:100px;height:100px;border-radius:50%;background:#f1f5f9;border:1.5px solid #cbd5e1;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:36px;color:#0f4c81;font-weight:700;">
+                    <div style="width:100px;height:100px;border-radius:50%;background:#f1f5f9;border:1.5px solid #cbd5e1;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:36px;color:#1e7c3e;font-weight:700;">
                         {{ strtoupper(substr($orangTua->identitasSiswa->nama_peserta_didik ?? 'S', 0, 1)) }}
                     </div>
                 @endif

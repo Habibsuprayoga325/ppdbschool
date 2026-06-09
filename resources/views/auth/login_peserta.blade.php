@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Peserta | PPDB SDN Mekar Mukti 06</title>
+    <title>Login Peserta | PPDB Sekolah Amanah Bangsa Cikarang</title>
     <link rel="icon" href="{{ asset('img/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0f4c81; /* Royal blue / Navy matching logo */
-            --primary-dark: #0d3e6a;
-            --primary-light: #eff6ff;
+            --primary: #1e7c3e; /* Amanah Bangsa Green */
+            --primary-dark: #166534;
+            --primary-light: #f0fdf4;
         }
         * { box-sizing: border-box; }
         body {
@@ -34,14 +34,15 @@
         }
         .login-left {
             flex: 1;
-            background-color: #0f4c81;
+            background-color: #1e7c3e;
             padding: 48px 40px;
             color: white;
             display: flex; flex-direction: column; justify-content: space-between;
         }
         .login-left .brand { display: flex; align-items: center; gap: 12px; }
         .brand-logo-img {
-            height: 46px; width: 46px;
+            height: 46px; width: auto;
+            max-width: 150px;
             object-fit: contain;
         }
         .brand-name { font-weight: 800; font-size: 18px; }
@@ -73,7 +74,7 @@
         }
         .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
+            box-shadow: 0 0 0 3px rgba(30, 124, 62, 0.15);
         }
         .form-label { font-weight: 500; font-size: 14px; color: #374151; }
         .input-group-text { border-radius: 10px 0 0 10px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-right: none; }
@@ -107,7 +108,7 @@
             <img class="brand-logo-img" src="{{ asset('img/tut.png') }}" alt="Logo">
             <div>
                 <div class="brand-name">PPDB Online</div>
-                <div class="brand-sub">SDN Mekar Mukti 06</div>
+                <div class="brand-sub">Sekolah Amanah Bangsa Cikarang</div>
             </div>
         </div>
         <div class="login-hero">
@@ -128,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <div style="font-size:12px;opacity:0.6;">© {{ date('Y') }} PPDB SDN Mekar Mukti 06</div>
+        <div style="font-size:12px;opacity:0.6;">© {{ date('Y') }} PPDB Sekolah Amanah Bangsa Cikarang</div>
     </div>
 
     <!-- Right Panel -->

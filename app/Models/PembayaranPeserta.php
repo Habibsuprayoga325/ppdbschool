@@ -16,7 +16,7 @@ class PembayaranPeserta extends Model
         'identitas_siswa_id',
         'administrasi_item_id',
         'payment_code',
-        'bukti_bayar',
+        'payment_proof',
         'catatan',
         'status',
     ];
@@ -34,7 +34,8 @@ class PembayaranPeserta extends Model
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
-            'menunggu_konfirmasi' => 'Menunggu Konfirmasi',
+            'pending' => 'Belum Dibayar',
+            'menunggu_verifikasi' => 'Menunggu Verifikasi',
             'lunas' => 'Lunas',
             'ditolak' => 'Ditolak',
             default => 'Belum Dibayar',

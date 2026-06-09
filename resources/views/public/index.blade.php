@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'PPDB Online | SDN Mekar Mukti 06')
+@section('title', 'PPDB Online | Sekolah Amanah Bangsa Cikarang')
 
 @push('styles')
 <style>
@@ -11,8 +11,8 @@
         position: relative;
     }
     .hero-badge {
-        background-color: #eff6ff;
-        border: 1px solid #bfdbfe;
+        background-color: #f0fdf4;
+        border: 1px solid #bbf7d0;
         color: var(--primary);
         padding: 6px 14px;
         border-radius: 20px;
@@ -83,7 +83,9 @@
         text-align: center;
     }
     .hero-logo-card img {
-        height: 120px;
+        height: auto;
+        max-height: 120px;
+        max-width: 100%;
         object-fit: contain;
         margin-bottom: 24px;
     }
@@ -252,7 +254,7 @@
             <div class="col-lg-7">
                 <span class="hero-badge"><i class="fas fa-bullhorn me-1.5"></i>Tahun Ajaran 2026/2027</span>
                 <h1 class="hero-title">Penerimaan Peserta Didik Baru Online</h1>
-                <p class="hero-desc">Pendaftaran siswa baru SDN Mekar Mukti 06 Cikarang Baru kini dapat diakses dengan mudah dan transparan. Daftarkan putra-putri Anda secara online melalui platform resmi kami.</p>
+                <p class="hero-desc">Pendaftaran siswa baru Sekolah Amanah Bangsa Cikarang kini dapat diakses dengan mudah dan transparan. Daftarkan putra-putri Anda secara online melalui platform resmi kami.</p>
                 <div class="hero-btns">
                     <a href="{{ route('public.daftar-siswa') }}" class="btn-hero-primary">
                         Daftar Sekarang <i class="fas fa-arrow-right ms-1.5"></i>
@@ -265,7 +267,7 @@
             <div class="col-lg-5 hero-logo-box d-none d-lg-flex">
                 <div class="hero-logo-card">
                     <img src="{{ asset('img/tut.png') }}" alt="Logo Tut Wuri">
-                    <h3 class="fw-bold text-dark mb-1" style="font-size: 18px;">SDN Mekar Mukti 06</h3>
+                    <h3 class="fw-bold text-dark mb-1" style="font-size: 18px;">Amanah Bangsa</h3>
                     <p class="text-muted small mb-0">Kab. Bekasi, Jawa Barat</p>
                 </div>
             </div>
@@ -413,7 +415,7 @@
 <section class="products-section" style="padding: 70px 0; background-color: #ffffff; border-bottom: 1px solid #e2e8f0;">
     <div class="container">
         <h2 class="section-title">Rincian Layanan & Biaya Administrasi</h2>
-        <p class="text-center text-muted mx-auto mb-5" style="max-width: 700px; font-size: 15px;">Berikut adalah rincian produk, seragam, buku, dan biaya administrasi PPDB SDN Mekar Mukti 06 yang dapat dipesan dan dibayar oleh orang tua siswa melalui portal peserta setelah terdaftar resmi:</p>
+        <p class="text-center text-muted mx-auto mb-5" style="max-width: 700px; font-size: 15px;">Berikut adalah rincian produk, seragam, buku, dan biaya administrasi PPDB Sekolah Amanah Bangsa Cikarang yang dapat dipesan dan dibayar oleh orang tua siswa melalui portal peserta setelah terdaftar resmi:</p>
         
         <div class="row g-4 justify-content-center">
             @php
@@ -466,7 +468,7 @@
             @foreach($ppdbProducts as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 25px; height: 100%; transition: all 0.2s;" class="product-compliance-card">
-                        <div style="width: 50px; height: 50px; background: #eff6ff; color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px;">
+                        <div style="width: 50px; height: 50px; background: #f0fdf4; color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px;">
                             <i class="fas {{ $product['icon'] }}"></i>
                         </div>
                         <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">{{ $product['title'] }}</h4>
@@ -479,7 +481,7 @@
         
         <div class="text-center mt-5">
             <div class="alert alert-info d-inline-block py-2.5 px-4" style="border-radius: 12px; font-size: 14px;">
-                <i class="fas fa-info-circle me-2"></i> Paket administrasi di atas dapat Anda pesan dan bayar dengan mata uang <strong>Rupiah (IDR)</strong> secara aman menggunakan Midtrans di dalam Dashboard Peserta setelah registrasi.
+                <i class="fas fa-info-circle me-2"></i> Paket administrasi di atas dapat Anda pesan dan bayar dengan metode pembayaran <strong>QRIS</strong> di dalam Dashboard Peserta setelah registrasi.
             </div>
         </div>
     </div>
@@ -511,11 +513,11 @@
                         <h4>Contact Us</h4>
                     </div>
                     <ul class="info-list">
-                        <li><i class="fas fa-phone me-2 text-primary"></i> <strong>Telepon:</strong> +62 877-8014-7825</li>
-                        <li><i class="fas fa-envelope me-2 text-primary"></i> <strong>Email:</strong> ppdb@sdnmekarmukti06.sch.id</li>
-                        <li><i class="fas fa-globe me-2 text-primary"></i> <strong>Website:</strong> www.sdnmekarmukti06.sch.id</li>
-                        <li><strong>Alamat Sekolah:</strong> Jalan Kasuari XV, Perum Cikarang Baru, Bekasi.</li>
-                        <li><strong>Hari Pelayanan Verifikasi:</strong> Senin s/d Jumat (08.00 - 12.00 WIB).</li>
+                        <li><i class="fas fa-phone me-2 text-primary"></i> <strong>Telepon:</strong> 0877-8329-6667</li>
+                        <li><i class="fas fa-envelope me-2 text-primary"></i> <strong>Email:</strong> support@amanahbangsa.sch.id</li>
+                        <li><i class="fas fa-globe me-2 text-primary"></i> <strong>Website:</strong> www.amanahbangsa.sch.id</li>
+                        <li><strong>Alamat Sekolah:</strong> Jl. Irigasi Raya, Jayamukti, Cikarang Pusat, 17530, Bekasi, Jawa Barat.</li>
+                        <li><strong>Hari Pelayanan Verifikasi:</strong> Senin s/d Sabtu (06.00 - 17.30 WIB).</li>
                     </ul>
                 </div>
             </div>

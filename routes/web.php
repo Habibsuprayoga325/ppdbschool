@@ -19,7 +19,6 @@ Route::get('/daftar-siswa', [PublicController::class, 'daftarSiswa'])->name('pub
 Route::post('/daftar-siswa', [PublicController::class, 'storeSiswa'])->name('public.store-siswa');
 Route::get('/daftar-ortu', [PublicController::class, 'daftarOrtu'])->name('public.daftar-ortu');
 Route::post('/daftar-ortu', [PublicController::class, 'storeOrtu'])->name('public.store-ortu');
-Route::post('/midtrans/callback', [AdminPembayaranController::class, 'midtransCallback'])->name('midtrans.callback');
 Route::get('/syarat-ketentuan', [PublicController::class, 'syaratKetentuan'])->name('public.syarat-ketentuan');
 Route::get('/kebijakan-pengembalian', [PublicController::class, 'kebijakanPengembalian'])->name('public.kebijakan-pengembalian');
 
@@ -88,6 +87,4 @@ Route::middleware('peserta')->prefix('peserta')->name('peserta.')->group(functio
     Route::post('/orangtua/update', [PesertaDashboardController::class, 'updateOrangTua'])->name('orangtua.update');
     Route::get('/cetak', [PesertaDashboardController::class, 'cetakKartu'])->name('cetak');
     Route::post('/pembayaran', [PesertaDashboardController::class, 'storePembayaran'])->name('pembayaran.store');
-    Route::post('/pembayaran/initiate', [PesertaDashboardController::class, 'initiatePembayaran'])->name('pembayaran.initiate');
-    Route::post('/pembayaran/simulate-success', [PesertaDashboardController::class, 'simulatePaymentSuccess'])->name('pembayaran.simulate-success');
 });

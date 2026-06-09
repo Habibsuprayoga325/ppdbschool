@@ -16,9 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'peserta' => \App\Http\Middleware\PesertaMiddleware::class,
         ]);
-        $middleware->validateCsrfTokens(except: [
-            'midtrans/callback',
-        ]);
+        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
