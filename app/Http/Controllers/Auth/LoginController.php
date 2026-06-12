@@ -26,7 +26,6 @@ class LoginController extends Controller
             'password.required' => 'Password wajib diisi!',
         ]);
 
-        // Cek status user
         $user = \App\Models\User::where('username', $credentials['username'])->first();
 
         if ($user && $user->status === 'tidak aktif') {

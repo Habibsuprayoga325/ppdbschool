@@ -9,7 +9,6 @@ class AdminPembayaranController extends Controller
 {
     public function index()
     {
-        // Get all transactions grouped by payment_code
         $pembayaranGroups = PembayaranPeserta::with(['identitasSiswa', 'administrasiItem'])
             ->latest()
             ->get()
@@ -30,7 +29,6 @@ class AdminPembayaranController extends Controller
             $payment->update(['status' => 'lunas']);
         }
 
-        // Sync student's overall status
         $siswa = $payments->first()->identitasSiswa;
         $siswa->syncOverallAdministrasiStatus();
 
@@ -49,7 +47,6 @@ class AdminPembayaranController extends Controller
             $payment->update(['status' => 'ditolak']);
         }
 
-        // Sync student's overall status
         $siswa = $payments->first()->identitasSiswa;
         $siswa->syncOverallAdministrasiStatus();
 

@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Seed Users
         User::updateOrCreate(
             ['username' => 'admin'],
             [
@@ -34,7 +33,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Seed Siswa sample if not already seeded
         $siswaExists = IdentitasSiswa::where('nisn', '0001999901')->exists();
         if (!$siswaExists) {
             $siswa1 = IdentitasSiswa::create([

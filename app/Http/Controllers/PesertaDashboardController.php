@@ -34,7 +34,6 @@ class PesertaDashboardController extends Controller
             'payment_proof.max' => 'Ukuran bukti pembayaran maksimal 2MB!',
         ]);
 
-        // Validate active payments
         foreach ($request->items as $itemId) {
             $hasActivePayment = $siswa->pembayaranPeserta()
                 ->where('administrasi_item_id', $itemId)
@@ -47,24 +46,19 @@ class PesertaDashboardController extends Controller
             }
         }
 
-        // Get file
         $file = $request->file('payment_proof');
 
         try {
-            // Compress and convert file using Intervention Image v3
             $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
             $image = $manager->read($file);
-            $webpData = $image->toWebp(75); // Convert to WebP and compress to 75% quality
+            $webpData = $image->toWebp(75);
 
-            // Write to a temporary file
             $tempPath = tempnam(sys_get_temp_dir(), 'qris_') . '.webp';
             file_put_contents($tempPath, $webpData);
 
-            // Assemble standardized penamaan file
             $cleanNoPendaftaran = str_replace(['-', '/'], '_', $siswa->no_pendaftaran);
             $customFilename = "bukti_qris_PPDB_{$cleanNoPendaftaran}_" . time();
 
-            // Initialize official Cloudinary client
             $cloudinary = new \Cloudinary\Cloudinary([
                 'cloud' => [
                     'cloud_name' => config('services.cloudinary.cloud_name'),
@@ -73,7 +67,6 @@ class PesertaDashboardController extends Controller
                 ]
             ]);
 
-            // Upload to Cloudinary folder ppdb_qris_pembayaran
             $uploadResult = $cloudinary->uploadApi()->upload($tempPath, [
                 'folder' => 'ppdb_qris_pembayaran',
                 'public_id' => $customFilename,
@@ -81,16 +74,13 @@ class PesertaDashboardController extends Controller
 
             $secureUrl = $uploadResult['secure_url'];
 
-            // Clean up temporary file
             @unlink($tempPath);
         } catch (\Exception $e) {
             return back()->withErrors(['payment_proof' => 'Gagal memproses dan mengunggah bukti pembayaran: ' . $e->getMessage()]);
         }
 
-        // Generate payment code
         $paymentCode = 'PAY-' . date('YmdHis') . '-' . mt_rand(1000, 9999);
 
-        // Create payments in database
         foreach ($request->items as $itemId) {
             \App\Models\PembayaranPeserta::create([
                 'identitas_siswa_id' => $siswa->id,
@@ -102,7 +92,6 @@ class PesertaDashboardController extends Controller
             ]);
         }
 
-        // Sync student's overall status
         $siswa->syncOverallAdministrasiStatus();
 
         return redirect()->route('peserta.dashboard')

@@ -314,96 +314,84 @@
             <!-- Gallery Item 1 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_1.jpeg') }}" alt="Festival Tunas Bahasa Ibu">
+                    <img src="{{ asset('img/isra_miraj.jpg') }}" alt="Isra Miraj">
                 </div>
                 <div class="gallery-body">
-                    <span class="gallery-category">Seni & Budaya</span>
-                    <h4 class="gallery-title">Festival Tunas Bahasa Ibu</h4>
-                    <p class="gallery-desc">Menampilkan bakat seni dan budaya daerah melalui busana adat dan pertunjukan kreatif.</p>
+                    <span class="gallery-category">Karakter</span>
+                    <h4 class="gallery-title">Isra Miraj</h4>
+                    <p class="gallery-desc">Peringatan hari besar keagamaan Isra Miraj oleh seluruh siswa dan guru.</p>
                 </div>
             </div>
 
             <!-- Gallery Item 2 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_2.jpeg') }}" alt="Turnamen Futsal Siswa">
+                    <img src="{{ asset('img/market_day.jpg') }}" alt="Market Day Anak">
                 </div>
                 <div class="gallery-body">
-                    <span class="gallery-category">Kesehatan</span>
-                    <h4 class="gallery-title">Turnamen Futsal Siswa</h4>
-                    <p class="gallery-desc">Mengembangkan bakat olahraga, sportivitas, dan kerja sama tim futsal sekolah.</p>
+                    <span class="gallery-category">Kreativitas</span>
+                    <h4 class="gallery-title">Market Day Anak</h4>
+                    <p class="gallery-desc">Kegiatan kewirausahaan belajar berniaga sejak dini.</p>
                 </div>
             </div>
 
             <!-- Gallery Item 3 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_3.jpeg') }}" alt="Pentas Seni Tari Tradisional">
+                    <img src="{{ asset('img/berenang.jpg') }}" alt="Berenang">
                 </div>
                 <div class="gallery-body">
-                    <span class="gallery-category">Karakter</span>
-                    <h4 class="gallery-title">Pentas Seni Tari Tradisional</h4>
-                    <p class="gallery-desc">Melestarikan seni pertunjukan tradisional Indonesia dalam kegiatan ekstrakurikuler budaya.</p>
+                    <span class="gallery-category">Kesehatan</span>
+                    <h4 class="gallery-title">Berenang</h4>
+                    <p class="gallery-desc">Kegiatan olahraga air rutin guna menjaga kesehatan dan kebugaran.</p>
                 </div>
             </div>
 
             <!-- Gallery Item 4 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_4.jpg') }}" alt="Pelepasan & Wisuda Kelas 6">
+                    <img src="{{ asset('img/ramadhan_berkah.jpg') }}" alt="Ramadhan Berkah">
                 </div>
                 <div class="gallery-body">
-                    <span class="gallery-category">Akademik</span>
-                    <h4 class="gallery-title">Pelepasan & Wisuda Kelas 6</h4>
-                    <p class="gallery-desc">Momen perayaan kelulusan siswa kelas 6 dengan penuh suka cita dan penampilan seni.</p>
+                    <span class="gallery-category">Sosial</span>
+                    <h4 class="gallery-title">Ramadhan Berkah</h4>
+                    <p class="gallery-desc">Penyaluran bantuan sosial dan takjil kepada masyarakat sekitar.</p>
                 </div>
             </div>
 
             <!-- Gallery Item 5 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_5.jpeg') }}" alt="Sosialisasi Kamtibmas oleh Polsek">
+                    <img src="{{ asset('img/tarhib_ramadhan.jpg') }}" alt="Tarhib Ramadhan">
                 </div>
                 <div class="gallery-body">
                     <span class="gallery-category">Karakter</span>
-                    <h4 class="gallery-title">Sosialisasi Kamtibmas oleh Polsek</h4>
-                    <p class="gallery-desc">Edukasi keselamatan berlalu lintas dan disiplin diri oleh Kepolisian Sektor setempat.</p>
+                    <h4 class="gallery-title">Tarhib Ramadhan</h4>
+                    <p class="gallery-desc">Pawai menyambut bulan suci Ramadhan bersama seluruh siswa.</p>
                 </div>
             </div>
 
             <!-- Gallery Item 6 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_6.jpeg') }}" alt="Kegiatan Keagamaan Bersama">
+                    <img src="{{ asset('img/field_trip.jpg') }}" alt="Field Trip">
                 </div>
                 <div class="gallery-body">
-                    <span class="gallery-category">Karakter</span>
-                    <h4 class="gallery-title">Kegiatan Keagamaan Bersama</h4>
-                    <p class="gallery-desc">Pembinaan karakter spiritual siswa melalui doa bersama dan pengajian rutin.</p>
+                    <span class="gallery-category">Akademik</span>
+                    <h4 class="gallery-title">Field Trip</h4>
+                    <p class="gallery-desc">Kegiatan pembelajaran di luar kelas untuk memperluas wawasan dan pengalaman langsung siswa.</p>
                 </div>
             </div>
 
             <!-- Gallery Item 7 -->
             <div class="gallery-card">
                 <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_7.jpeg') }}" alt="Asesmen Nasional (ANBK)">
+                    <img src="{{ asset('img/kurban.jpg') }}" alt="Kurban">
                 </div>
                 <div class="gallery-body">
-                    <span class="gallery-category">Akademik</span>
-                    <h4 class="gallery-title">Asesmen Nasional (ANBK)</h4>
-                    <p class="gallery-desc">Pelaksanaan ujian berbasis komputer untuk mengukur mutu pendidikan secara nasional.</p>
-                </div>
-            </div>
-
-            <!-- Gallery Item 8 -->
-            <div class="gallery-card">
-                <div class="gallery-img-wrapper">
-                    <img src="{{ asset('img/imagee_8.jpeg') }}" alt="Gebyar Kokurikuler & Prestasi">
-                </div>
-                <div class="gallery-body">
-                    <span class="gallery-category">Akademik</span>
-                    <h4 class="gallery-title">Gebyar Kokurikuler & Prestasi</h4>
-                    <p class="gallery-desc">Pameran karya siswa dan apresiasi prestasi akademik maupun non-akademik.</p>
+                    <span class="gallery-category">Karakter</span>
+                    <h4 class="gallery-title">Kurban</h4>
+                    <p class="gallery-desc">Kegiatan penyembelihan dan penyaluran hewan kurban pada Hari Raya Idul Adha bersama warga sekolah.</p>
                 </div>
             </div>
 
