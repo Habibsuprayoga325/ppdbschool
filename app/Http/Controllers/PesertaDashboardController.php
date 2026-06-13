@@ -51,10 +51,17 @@ class PesertaDashboardController extends Controller
         try {
             $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
             $image = $manager->read($file);
-            $webpData = $image->toWebp(75);
 
-            $tempPath = tempnam(sys_get_temp_dir(), 'qris_') . '.webp';
-            file_put_contents($tempPath, $webpData);
+            if (function_exists('imagewebp')) {
+                $imageData = $image->toWebp(75);
+                $extension = 'webp';
+            } else {
+                $imageData = $image->toJpeg(75);
+                $extension = 'jpg';
+            }
+
+            $tempPath = tempnam(sys_get_temp_dir(), 'qris_') . '.' . $extension;
+            file_put_contents($tempPath, $imageData);
 
             $cleanNoPendaftaran = str_replace(['-', '/'], '_', $siswa->no_pendaftaran);
             $customFilename = "bukti_qris_PPDB_{$cleanNoPendaftaran}_" . time();
